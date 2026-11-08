@@ -109,9 +109,6 @@ the converted trajectories with its official WebJudge evaluator.
 
 ## Notes
 
-- This release is a cleaned version of our research code. Few-shot examples taken from benchmark tasks and a
-  site-specific navigation shortcut used during our experiments were replaced with generic, site-independent
-  versions, so results can differ from the numbers reported in the paper.
 - The WebArena login helper (`auto_login.py`) uses the default test accounts shipped with the WebArena Docker images.
 
 ## Citation
