@@ -1,0 +1,6 @@
+browsergym-core>=0.10
+gymnasium
+playwright
+litellm>=1.40
+pyyaml
+pillow
