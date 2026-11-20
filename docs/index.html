@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Project page for NesyProAct, a NeurIPS 2026 paper on proactive neural-symbolic control for web agents: programmatic verification and repair inside the decision loop.">
+  <meta name="keywords"
+    content="NesyProAct, web agents, neuro-symbolic, proactive grounding, programmatic verification, skill induction, WebArena, NeurIPS 2026">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NesyProAct: Proactive Neural-Symbolic Control for Web Agents</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232a5298'/%3E%3Cpath d='M8 17l5 5 11-12' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+
+<body>
+  <nav class="nav" aria-label="Sections">
+    <div class="nav-inner">
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Method</a>
+      <a href="#example">Example</a>
+      <a href="#results">Results</a>
+      <a href="#analysis">Analysis</a>
+      <a href="#BibTeX">BibTeX</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <h1 class="title">
+        <span class="accent">NesyProAct:</span><br>
+        Proactive Neural-Symbolic Control for Web Agents
+      </h1>
+
+      <div class="authors">
+        <span>Tianyi Tang<sup>1*</sup>,</span>
+        <span>Keyi Xiang<sup>2*</sup>,</span>
+        <span><a href="https://www.lamda.nju.edu.cn/shaojj">Jie-Jing Shao</a><sup>1</sup>,</span>
+        <span><a href="https://scholar.google.com/citations?user=uQXB6-oAAAAJ">Yueming Lyu</a><sup>1</sup>,</span>
+        <span><a href="https://scholar.google.com/citations?user=rJMOlVsAAAAJ">Ivor Tsang</a><sup>1,3</sup>,</span>
+        <span>Yew-Soon Ong<sup>1,3</sup>,</span>
+        <span><a href="https://scholar.google.com/citations?user=xy6_gBUAAAAJ">Haiyan Yin</a><sup>1&dagger;</sup></span>
+      </div>
+
+      <div class="affils">
+        <div><sup>1</sup>CFAR and IAIC, Agency for Science, Technology and Research (A*STAR), Singapore</div>
+        <div><sup>2</sup>ByteDance, Singapore</div>
+        <div><sup>3</sup>Nanyang Technological University (NTU), Singapore</div>
+        <div class="note"><sup>*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Corresponding author</div>
+      </div>
+
+      <div class="venue">NeurIPS 2026</div>
+
+      <div class="logos">
+        <img src="./static/images/astar.png" alt="A*STAR">
+        <img src="./static/images/bytedance.png" alt="ByteDance" class="wide">
+        <img src="./static/images/ntu.png" alt="Nanyang Technological University">
+      </div>
+
+      <div class="links">
+        <a class="btn" href="./static/pdf/NesyProAct_NeurIPS2026.pdf">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l6 6v14H6zM13 3.5V9h5.5zM8 13h8v1.6H8zm0 3.4h8V18H8z"/></svg>
+          <span>Paper</span>
+        </a>
+        <a class="btn" href="https://github.com/haorentang/NesyProAct">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+          <span>Code</span>
+        </a>
+        <a class="btn" href="./static/pdf/NesyProAct_NeurIPS2026_poster.pdf">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v13H3zm2 2v9h14V6zM8 19h8v1.8H8z"/></svg>
+          <span>Poster</span>
+        </a>
+        <a class="btn secondary" href="#BibTeX">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h6v6H8.5c0 2 .8 3 2.5 3.4V18C7.3 17.5 5 15.2 5 11.5zm8 0h6v6h-2.5c0 2 .8 3 2.5 3.4V18c-3.7-.5-6-2.800-6-6.500z"/></svg>
+          <span>BibTeX</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="teaser">
+    <div class="container">
+      <img src="./static/images/skill_compare.png" width="2403" height="930"
+        alt="Left: an ASI skill is a plain code sequence. Right: a NesyProAct skill pairs each typed action with a grounding query, a post-action verifier, and pre- and post-conditions.">
+      <p>
+        Conventional skill induction stores skills as opaque action scripts and assumes they execute as intended.
+        NesyProAct represents each skill with typed actions, grounding queries, pre-conditions, post-action
+        verifiers and termination criteria, so every step is checked on the live page.
+      </p>
+    </div>
+  </section>
+
+  <section class="block" id="abstract">
+    <div class="container">
+      <div class="narrow">
+        <h2 class="center">Abstract</h2>
+        <p class="justify">
+          Web-based language agents operate under severe partial observability, where the semantic divergence between
+          internal state assumptions and the ground-truth environment is often unobservable. Consequently, agents
+          frequently maintain high-level reasoning coherence over misgrounded states, causing errors to compound as
+          subsequent decisions are conditioned on silently invalidated premises. We present <b>NesyProAct</b>, a
+          proactive neural-symbolic agentic decision framework that transforms conventional ReAct-style web agents
+          from reactive prompting pipelines into execution-aware decision processes. NesyProAct exposes a typed
+          symbolic decision interface over states, actions, transitions, and subgoals, enabling LLM-based agents to
+          automatically compose and reason over execution semantics across decision hierarchies. From this interface,
+          programmatic verification logic is synthesized online to evaluate step-level executability and progress,
+          with verification outcomes directly regulating decision evolution through targeted grounding interventions.
+          As a result, execution feedback is integrated into planning itself, allowing agents to maintain semantic
+          alignment under partial observability rather than propagating unverified assumptions. On WebArena,
+          NesyProAct achieves a <b>12%</b> overall improvement over the strong skill-induction framework ASI across
+          six domains. NesyProAct also performs well with the small model GPT-4o-mini, with a <b>5.1%</b> gain over
+          ASI with Claude-3.5.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="method">
+    <div class="container">
+      <div class="box">
+        <h2>Four Layers of Grounding, Each Conditioning the Next</h2>
+        <p class="justify">
+          NesyProAct models web interaction as a <b>Proactive Neural-Symbolic Agentic Decision Process (PNSDP)</b>:
+          a POMDP extended with a hierarchical predicate space &Phi;, a verification operator &#119985; and repair
+          operators &#8475;. Predicates are the vocabulary of checks the agent can compose. They are organized in
+          four layers, and the decision made at each layer determines what the layer below perceives and verifies.
+        </p>
+
+        <div class="grid c4">
+          <div class="card">
+            <h3>Decomposition</h3>
+            <p>Turns the task into subgoal intents with their dependencies.</p>
+            <p class="eg">search "camera" &rarr; sort by price &rarr; add to cart</p>
+          </div>
+          <div class="card">
+            <h3>Transition</h3>
+            <p>Compiles an intent into a typed action&ndash;query program.</p>
+            <p class="eg mono">type(q1,"camera"); click(q2)</p>
+          </div>
+          <div class="card">
+            <h3>State</h3>
+            <p>Retrieves the focused elements that satisfy each query, with local context.</p>
+            <p class="eg mono">IS(InputBox) AND CONTAINS(placeholder,<wbr>"search")</p>
+          </div>
+          <div class="card">
+            <h3>Action</h3>
+            <p>Checks that the action is executable, runs it, and checks its effect.</p>
+            <p class="eg mono">editable(1051) &rarr; CONTAINS(1051,"camera")</p>
+          </div>
+        </div>
+        <p class="caption">Examples follow the task <i>"Add the cheapest camera to the cart"</i>.</p>
+
+        <div class="figure-scroll">
+          <svg viewBox="0 0 960 290" role="img"
+            aria-label="Control loop: ground, check precondition, act, check effect, then advance on pass. A failed check goes to the repair operator, which revises the decision and returns to grounding.">
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1e3c72"/></marker>
+              <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1b8748"/></marker>
+              <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#c0352b"/></marker>
+            </defs>
+            <g font-family="Inter, sans-serif" text-anchor="middle">
+              <g stroke-width="2">
+                <rect x="10" y="20" width="170" height="86" rx="10" fill="#fff" stroke="#1e3c72"/>
+                <rect x="222" y="20" width="170" height="86" rx="10" fill="#e8effb" stroke="#2a5298"/>
+                <rect x="434" y="20" width="126" height="86" rx="10" fill="#fff" stroke="#1e3c72"/>
+                <rect x="602" y="20" width="170" height="86" rx="10" fill="#e8effb" stroke="#2a5298"/>
+                <rect x="814" y="20" width="136" height="86" rx="10" fill="#e7f5ec" stroke="#1b8748"/>
+                <rect x="222" y="196" width="550" height="78" rx="10" fill="#fbecea" stroke="#c0352b"/>
+              </g>
+              <g font-weight="700" font-size="16" fill="#1e3c72">
+                <text x="95" y="50">Ground</text>
+                <text x="307" y="50">Check precondition</text>
+                <text x="497" y="50">Act</text>
+                <text x="687" y="50">Check effect</text>
+                <text x="882" y="50" fill="#1b8748">Advance</text>
+                <text x="497" y="224" fill="#c0352b">Repair</text>
+              </g>
+              <g font-size="12.5" fill="#26313d">
+                <text x="95" y="72">compose predicates</text>
+                <text x="95" y="89">on the live page</text>
+                <text x="307" y="80">by code</text>
+                <text x="497" y="80">UI primitive</text>
+                <text x="687" y="80">by code</text>
+                <text x="882" y="72">on subgoal success,</text>
+                <text x="882" y="89">distill a skill</text>
+                <text x="497" y="244">the failure signal names the violated predicate and its layer;</text>
+                <text x="497" y="261">diagnose, revise, or add a new predicate to &Phi;</text>
+              </g>
+              <g font-weight="700" font-size="13">
+                <text x="791" y="48" fill="#1b8748">pass</text>
+                <text x="285" y="156" fill="#c0352b">fail</text>
+                <text x="709" y="156" fill="#c0352b">fail</text>
+              </g>
+            </g>
+            <g fill="none" stroke-width="2.5">
+              <path d="M180 63H219" stroke="#1e3c72" marker-end="url(#ah)"/>
+              <path d="M392 63H431" stroke="#1e3c72" marker-end="url(#ah)"/>
+              <path d="M560 63H599" stroke="#1e3c72" marker-end="url(#ah)"/>
+              <path d="M772 63H811" stroke="#1b8748" marker-end="url(#ahg)"/>
+              <path d="M307 106V193" stroke="#c0352b" marker-end="url(#ahr)"/>
+              <path d="M687 106V193" stroke="#c0352b" marker-end="url(#ahr)"/>
+              <path d="M222 235H95V109" stroke="#c0352b" marker-end="url(#ahr)"/>
+            </g>
+          </svg>
+        </div>
+        <p class="caption">
+          Verification is synthesized from the predicates as executable code, not delegated to an LLM judge. A
+          violation is handled at the layer where it occurs, before any later step builds on the wrong state.
+        </p>
+      </div>
+
+      <div class="box orange">
+        <h2>Skills Carry Their Own Verification Contract</h2>
+        <p class="justify">
+          A successful subgoal trajectory is distilled into a skill
+          &kappa;&nbsp;=&nbsp;(Pre<sub>&kappa;</sub>, &lang;(a<sub>1</sub>,q<sub>1</sub>), &hellip;,
+          (a<sub>T</sub>,q<sub>T</sub>)&rang;, Post<sub>&kappa;</sub>): a symbolic matching condition, a program of
+          typed actions paired with element-targeting queries, and a symbolic verifier.
+        </p>
+        <div class="grid c3">
+          <div class="card">
+            <h3>LLM-free matching</h3>
+            <p>A stored skill is selected by evaluating its pre-condition on the current page, with no LLM call.</p>
+          </div>
+          <div class="card">
+            <h3>Re-grounded, not replayed</h3>
+            <p>Each step retrieves fresh elements that satisfy its query and runs only if the action-level check passes.</p>
+          </div>
+          <div class="card">
+            <h3>Verified outcome</h3>
+            <p>The post-condition decides success by code. If a check fails, execution aborts or falls back to planning.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="example">
+    <div class="container">
+      <div class="box">
+        <h2>One Wrong Page, Five Confident Steps</h2>
+        <p>
+          GitLab task: <i>"Please invite Vinta to the repo 'dotfiles' as a guest."</i>
+        </p>
+        <div class="grid c2">
+          <div class="trace bad">
+            <h3>ReAct</h3>
+            <ol>
+              <li><code>click("Do it myself")</code> <span class="bad-text">lands on the wrong repository</span></li>
+              <li><code>click("Invite members")</code></li>
+              <li><code>fill("Usernames", "Vinta")</code></li>
+              <li><code>click("Vinta")</code> <span class="bad-text">invited to the wrong repository</span></li>
+              <li>Reports "Vinta has already been invited as a Guest."</li>
+            </ol>
+            <p class="verdict bad-text">Nothing checks where step 1 led, so the error compounds silently.</p>
+          </div>
+          <div class="trace good">
+            <h3>NesyProAct</h3>
+            <ol>
+              <li>Navigate toward the repository. The post-condition <code>url_contains("dotfiles")</code> is
+                <span class="bad-text">False</span>, and the failure signal names this predicate.</li>
+              <li>The repair operator re-plans the navigation and reaches the correct repository.</li>
+              <li><code>url_contains("dotfiles")</code> is now <span class="good-text">True</span>; the agent proceeds
+                to the invitation.</li>
+            </ol>
+            <p class="verdict good-text">The error is caught at the step where it occurs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="results">
+    <div class="container">
+      <div class="box">
+        <h2>Results on WebArena</h2>
+        <p class="justify">
+          We evaluate on the 812 WebArena tasks across six domains. With GPT-4o, NesyProAct reaches 58.2% average
+          success and leads every compared method in every domain. With the same Claude-3.5-Sonnet backbone it
+          exceeds ASI by 12.0 points, and with GPT-4o-mini it still outperforms every compared baseline that uses
+          GPT-4o.
+        </p>
+
+        <div class="grid c3">
+          <div class="card metric">
+            <strong>58.2%</strong>
+            <p>Average success rate on WebArena with GPT-4o; 57.9 &plusmn; 0.86 over four independent runs.</p>
+          </div>
+          <div class="card metric">
+            <strong>+12.0 pts</strong>
+            <p>Over ASI with the same Claude-3.5-Sonnet backbone (52.4% vs. 40.4%).</p>
+          </div>
+          <div class="card metric">
+            <strong>45.5%</strong>
+            <p>With GPT-4o-mini, 5.1 points above ASI with Claude-3.5-Sonnet.</p>
+          </div>
+        </div>
+
+        <div class="table-scroll" style="margin-top: 22px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th><th class="bb">Backbone</th><th>Shopping</th><th>Admin</th><th>Reddit</th>
+                <th>GitLab</th><th>Map</th><th>Cross</th><th>Avg.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group"><td colspan="9">Single-Agent Systems</td></tr>
+              <tr><td>ReAct baseline</td><td class="bb">GPT-4o</td><td>13.9</td><td>10.4</td><td>6.6</td><td>15.0</td><td>15.6</td><td>8.3</td><td>12.3</td></tr>
+              <tr><td>Tree Search</td><td class="bb">GPT-4o</td><td>27.8</td><td>16.5</td><td>11.3</td><td>13.9</td><td>26.6</td><td>16.7</td><td>19.2</td></tr>
+              <tr><td>Branch-and-Browse</td><td class="bb">GPT-4o</td><td>34.6</td><td>26.4</td><td>50.9</td><td>36.7</td><td>46.8</td><td>18.8</td><td>35.8</td></tr>
+              <tr><td>API-Based Agent</td><td class="bb">GPT-4o</td><td>25.7</td><td>41.2</td><td>51.9</td><td>44.4</td><td>45.9</td><td>16.7</td><td>38.9</td></tr>
+              <tr><td>Plan-MCTS</td><td class="bb">GPT-4o</td><td>43.6</td><td>40.5</td><td>54.1</td><td>33.7</td><td>24.6</td><td>&ndash;</td><td>39.2</td></tr>
+              <tr><td>AgentOccam</td><td class="bb">GPT-4o</td><td>33.7</td><td>46.7</td><td>60.4</td><td>44.4</td><td>40.4</td><td>25.0</td><td>42.9</td></tr>
+              <tr><td>WebDART<sup>&Dagger;</sup></td><td class="bb">GPT-4o</td><td>36.0</td><td>41.2</td><td>67.9</td><td>47.2</td><td>28.4</td><td>14.6</td><td>41.5</td></tr>
+              <tr class="group"><td colspan="9">Multi-Agent Systems</td></tr>
+              <tr><td>WebPilot</td><td class="bb">GPT-4o</td><td>36.9</td><td>24.7</td><td>65.1</td><td>39.4</td><td>33.9</td><td>&ndash;</td><td>37.2</td></tr>
+              <tr class="group"><td colspan="9">Memory-Augmented and Skill-Induction Agents</td></tr>
+              <tr><td>A-MEM<sup>&dagger;</sup></td><td class="bb">GPT-4o</td><td>36.9</td><td>19.8</td><td>15.1</td><td>22.8</td><td>50.5</td><td>16.7</td><td>27.7</td></tr>
+              <tr><td>SkillWeaver</td><td class="bb">GPT-4o</td><td>27.2</td><td>25.8</td><td>50.0</td><td>22.2</td><td>33.9</td><td>&ndash;</td><td>29.8</td></tr>
+              <tr><td>AWM</td><td class="bb">GPT-4o</td><td>32.1</td><td>29.1</td><td>54.7</td><td>35.0</td><td>42.2</td><td>18.8</td><td>35.5</td></tr>
+              <tr><td>AWM</td><td class="bb">Claude-3.5-Sonnet</td><td>34.8</td><td>39.0</td><td>51.9</td><td>28.9</td><td>39.4</td><td>18.8</td><td>36.3</td></tr>
+              <tr><td>CER</td><td class="bb">GPT-4o</td><td>32.8</td><td>41.2</td><td>41.2</td><td>37.2</td><td>30.4</td><td>&ndash;</td><td>36.7</td></tr>
+              <tr><td>ASI<sup>&dagger;</sup></td><td class="bb">GPT-4o</td><td>31.6</td><td>33.2</td><td>32.6</td><td>28.9</td><td>22.5</td><td>16.7</td><td>29.4</td></tr>
+              <tr><td>ASI</td><td class="bb">Claude-3.5-Sonnet</td><td>40.1</td><td>44.0</td><td>54.7</td><td>32.2</td><td>43.1</td><td>20.8</td><td>40.4</td></tr>
+              <tr class="group"><td colspan="9">Ours</td></tr>
+              <tr class="ours"><td><b>NesyProAct</b></td><td class="bb">GPT-4o-mini</td><td>40.6</td><td>35.8</td><td>72.5</td><td>50.5</td><td>34.7</td><td>22.9</td><td>45.5</td></tr>
+              <tr class="ours"><td><b>NesyProAct</b></td><td class="bb">GPT-4o</td><td class="best">58.1</td><td>47.6</td><td class="best">85.8</td><td class="best">56.7</td><td class="best">55.0</td><td class="best">41.7</td><td class="best">58.2</td></tr>
+              <tr class="ours"><td><b>NesyProAct</b></td><td class="bb">Claude-3.5-Sonnet</td><td>56.4</td><td class="best">50.0</td><td>68.1</td><td>49.7</td><td>42.9</td><td class="best">41.7</td><td>52.4</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">
+          Success rate (%) on WebArena. <sup>&dagger;</sup>Evaluated by us with GPT-4o under the same evaluation
+          configuration; A-MEM proposes a single action per step. <sup>&Dagger;</sup>Shopping to GitLab from the
+          original paper, which reports only these four domains (average 48.1); Map and Cross reproduced by us with
+          GPT-4o. All other baseline results are taken from the cited work under their original evaluation settings;
+          Plan-MCTS, CER, SkillWeaver and WebPilot do not report all six domains.
+        </p>
+      </div>
+
+      <div class="box orange">
+        <h2>Live Websites, Ablation and Cost</h2>
+        <div class="grid c3">
+          <div>
+            <h3 class="sub">Online-Mind2Web <span>(GPT-4o)</span></h3>
+            <div class="table-scroll"><table class="compact">
+              <thead><tr><th>Method</th><th>Easy</th><th>Med.</th><th>Hard</th><th>All</th></tr></thead>
+              <tbody>
+                <tr><td>ASI</td><td>30.0</td><td>14.0</td><td>5.2</td><td>16.0</td></tr>
+                <tr class="ours"><td><b>NesyProAct</b></td><td class="best">51.3</td><td class="best">24.5</td><td class="best">7.5</td><td class="best">27.3</td></tr>
+              </tbody>
+            </table></div>
+            <p class="caption">300 tasks on real live websites, scored by the official WebJudge evaluator. Same
+              predicates, actions and prompts as on WebArena.</p>
+          </div>
+          <div>
+            <h3 class="sub">Progressive ablation <span>(GPT-4o, avg.)</span></h3>
+            <div class="table-scroll"><table class="compact">
+              <thead><tr><th>Design</th><th>SR (%)</th></tr></thead>
+              <tbody>
+                <tr class="ours"><td><b>Full system</b></td><td class="best">58.2</td></tr>
+                <tr><td>&minus; skill induction</td><td>46.3</td></tr>
+                <tr><td>&minus; state grounding</td><td>33.8</td></tr>
+                <tr><td>&minus; transition grounding</td><td>27.9</td></tr>
+              </tbody>
+            </table></div>
+            <p class="caption">Each row removes one more component. The same ordering holds in every domain.</p>
+          </div>
+          <div>
+            <h3 class="sub">Cost per task <span>(GPT-4o)</span></h3>
+            <div class="table-scroll"><table class="compact">
+              <thead><tr><th>Method</th><th>Tokens</th><th>Steps</th></tr></thead>
+              <tbody>
+                <tr><td>ReAct</td><td>68.5K</td><td>7.51</td></tr>
+                <tr><td>ASI</td><td>76.7K</td><td>6.64</td></tr>
+                <tr class="ours"><td><b>NesyProAct</b></td><td class="best">53.9K</td><td class="best">4.28</td></tr>
+              </tbody>
+            </table></div>
+            <p class="caption">21% fewer tokens than ReAct and 30% fewer than ASI, because deterministic checks and
+              skill reuse replace repeated LLM calls.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="analysis">
+    <div class="container">
+      <div class="box">
+        <h2>How Reliable Are the Verifiers, and What Still Fails?</h2>
+        <div class="grid c3">
+          <div class="card metric">
+            <strong>87.7% / 83.2%</strong>
+            <p>Precision and recall of the synthesized verifiers at detecting execution violations, against human
+              labels on 300 decisions.</p>
+          </div>
+          <div class="card metric">
+            <strong>14%</strong>
+            <p>Share of grounding errors among 100 analysed failed tasks.</p>
+          </div>
+          <div class="card metric">
+            <strong>40% + 16%</strong>
+            <p>Planning and information-extraction errors, which make up most remaining failures and which execution
+              checks do not target.</p>
+          </div>
+        </div>
+        <p class="caption">
+          A false reject triggers repair and costs only re-execution. A false accept is silent at that step, but
+          can still be caught by a later check. Task success is always scored by the WebArena evaluator, so verifier
+          mistakes can lower but never inflate the reported success rates.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="BibTeX">
+    <div class="container">
+      <h2>BibTeX</h2>
+      <div class="code-wrap">
+        <button id="copy-bibtex-btn" class="btn small" type="button">Copy</button>
+        <pre><code id="bibtex-code" style="background:none;padding:0;font-size:inherit;">@inproceedings{tang2026nesyproact,
+  title={NesyProAct: Proactive Neural-Symbolic Control for Web Agents},
+  author={Tianyi Tang and Keyi Xiang and Jie-Jing Shao and Yueming Lyu and Ivor Tsang and Yew-Soon Ong and Haiyan Yin},
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2026}
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Page layout follows the academic project-page style of
+    <a href="https://sh-jj.github.io/NSI/index.html">NSI</a> and
+    <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var btn = document.getElementById("copy-bibtex-btn");
+      var code = document.getElementById("bibtex-code");
+      if (!btn || !code) { return; }
+      function done() {
+        btn.textContent = "Copied!";
+        setTimeout(function () { btn.textContent = "Copy"; }, 2000);
+      }
+      function fallback(text) {
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.setAttribute("readonly", "");
+        ta.style.position = "fixed"; ta.style.left = "-9999px";
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        return ok;
+      }
+      btn.addEventListener("click", function () {
+        var text = code.innerText;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function () { if (fallback(text)) { done(); } });
+        } else if (fallback(text)) { done(); }
+      });
+    });
+  </script>
+</body>
+
+</html>
